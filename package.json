@@ -34,7 +34,6 @@
     "react-icons": "4.8.0",
     "react-toastify": "9.1.2",
     "hardhat": "2.12.7",
-
     "mongodb": "5.5.0",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/hossein/Desktop/tutorials/2 Ethereum (React+ Solidity)/11 Web2+Web3 (React+ Express+ Solidity)/5 lazy minting/1 lazy minting Dapp/dappLazy-master/contracts/Lazy.sol": {
-      "lastModificationDate": 1733119585888,
-      "contentHash": "cb61b6b77f4c00bc9fc1e0637faf8512",
+      "lastModificationDate": 1733145206026,
+      "contentHash": "a296bb3942b3862e9f81cb650b8e1a21",
       "sourceName": "contracts/Lazy.sol",
       "solcConfig": {
         "version": "0.8.17",

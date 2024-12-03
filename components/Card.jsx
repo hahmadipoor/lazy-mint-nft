@@ -10,8 +10,8 @@ const Card = ({ nftData, btn }) => {
   const router = useRouter()
 
   const handleMint = async () => {
-    if (!connectedAccount) return toast.warning('Please connect wallet...')
 
+    if (!connectedAccount) return toast.warning('Please connect wallet...')
     await toast.promise(
       new Promise(async (resolve, reject) => {
         await mintNft(nftData)
@@ -84,33 +84,24 @@ const Card = ({ nftData, btn }) => {
       <img src={nftData.imageUrl} alt={nftData.name} className="w-full h-56 object-cover mb-4" />
       <h2 className="text-xl font-bold">{nftData.name}</h2>
       <p className="text-gray-500 mb-4">{truncate(nftData.description, 100, 0, 103)}</p>
-      {btn ? (
-        <div className="flex justify-between items-center">
-          <button
-            onClick={handleMint}
-            className="bg-blue-500 text-white px-2 py-1 rounded-md
-          hover:bg-gray-200 transition-colors duration-300"
-          >
+      {btn 
+      ? (<div className="flex justify-between items-center">
+          <button onClick={handleMint} className="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-gray-200 transition-colors duration-300">
             <p className="flex justify-start items-center space-x-1">
               <FaEthereum />
               <span>{nftData.price} List</span>
             </p>
           </button>
 
-          <button
-            onClick={handleDelete}
-            className="bg-red-500 text-white px-2 py-1 rounded-md
-          hover:bg-gray-200 transition-colors duration-300"
-          >
+          <button onClick={handleDelete} className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-gray-200 transition-colors duration-300">
             Delete
           </button>
-        </div>
-      ) : (
-        <p className="flex justify-start items-center space-x-1 text-black font-semibold">
+        </div>) 
+      : (<p className="flex justify-start items-center space-x-1 text-black font-semibold">
           <FaEthereum />
           <span>{nftData.price}</span>
         </p>
-      )}
+        )}
     </div>
   )
 }

@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "hardhat/console.sol";
 
 contract Lazy is ERC721 {
+
     using Counters for Counters.Counter;
     Counters.Counter private totalItems;
-
     struct NFTStruct {
         string name;
         string description;
@@ -34,12 +34,9 @@ contract Lazy is ERC721 {
         require(bytes(name).length > 0, "name cannot be empty");
         require(bytes(description).length > 0, "description cannot be empty");
         require(bytes(imageUrl).length > 0, "imageUrl cannot be empty");
-
         totalItems.increment();
         uint tokenId = totalItems.current();
         _mint(msg.sender, tokenId);
-
-
         NFTStruct memory item;
         item.tokenId = tokenId;
         item.name = name;
@@ -47,7 +44,6 @@ contract Lazy is ERC721 {
         item.imageUrl = imageUrl;
         item.price = price;
         item.owner = msg.sender;
-
         collection[tokenId] = item;
     }
 

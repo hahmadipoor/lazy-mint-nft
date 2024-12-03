@@ -18,10 +18,8 @@ export default async function handler(req, res) {
 
   try {
     await client.connect()
-
     const nftsCollection = client.db('dapplazy').collection('nfts')
     const nfts = await nftsCollection.find({}).toArray()
-
     return res.status(200).json(nfts)
   } catch (error) {
     console.error('Error retrieving NFTs:', error)

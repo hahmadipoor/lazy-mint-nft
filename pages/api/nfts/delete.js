@@ -11,19 +11,17 @@ const client = new MongoClient(uri, {
 })
 
 export default async function handler(req, res) {
+
   if (req.method !== 'DELETE') {
     return res.status(405).json({ message: 'Method Not Allowed' })
   }
-
   try {
     const { _id, owner } = req.body
-
     await client.connect()
     const result = await client
       .db('dapplazy')
       .collection('nfts')
       .deleteOne({ _id: new ObjectId(_id), owner })
-
     if (result.deletedCount > 0) {
       return res.status(200).json({ message: 'NFT deleted successfully' })
     } else {

@@ -15,7 +15,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     const fetchData = async () => {
       await isWallectConnected()
     }
-
     fetchData()
   }, [connectedAccount])
 

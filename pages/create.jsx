@@ -22,31 +22,30 @@ export default function CreateNFTPage() {
   }
 
   const handleSubmit = async (e) => {
+
     e.preventDefault()
     if(!connectedAccount) return toast.warning('Please connect wallet...')
-    
     await toast.promise(
       new Promise(async (resolve, reject) => {
         try {
-          const response = await fetch('/api/nfts/create', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...formData, owner: connectedAccount }),
-          })
-
-          if (response.ok) {
-            setFormData({
-              name: '',
-              description: '',
-              price: '',
-              imageUrl: '',
+            const response = await fetch('/api/nfts/create', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ ...formData, owner: connectedAccount }),
             })
-            resolve()
-          } else {
-            reject()
-          }
+            if (response.ok) {
+              setFormData({
+                name: '',
+                description: '',
+                price: '',
+                imageUrl: '',
+              })
+              resolve()
+            } else {
+              reject()
+            }
         } catch (error) {
           console.error('Error creating NFT:', error)
           reject()
@@ -74,64 +73,31 @@ export default function CreateNFTPage() {
             <label htmlFor="name" className="block font-semibold mb-2">
               Name
             </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" required/>
           </div>
 
           <div className="mb-4">
             <label htmlFor="price" className="block font-semibold mb-2">
               Price
             </label>
-            <input
-              type="text"
-              id="price"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
+            <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" required/>
           </div>
 
           <div className="mb-4">
             <label htmlFor="imageUrl" className="block font-semibold mb-2">
               Image URL
             </label>
-            <input
-              type="text"
-              id="imageUrl"
-              name="imageUrl"
-              value={formData.imageUrl}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
+            <input type="text" id="imageUrl" name="imageUrl" value={formData.imageUrl} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" required/>
           </div>
 
           <div className="mb-4">
             <label htmlFor="description" className="block font-semibold mb-2">
               Description
             </label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
+            <textarea id="description" name="description" value={formData.description} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md" required/>
           </div>
 
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
-            Create NFT
-          </button>
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Create NFT</button>
         </form>
       </div>
     </div>

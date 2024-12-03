@@ -21,14 +21,13 @@ const getEthereumContract = async () => {
     ? new ethers.providers.Web3Provider(ethereum)
     : new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL)
   const signer = provider.getSigner()
-
   const contract = new ethers.Contract(ContractAddress, ContractAbi, signer)  
   return contract
 }
 
 const ssrEthereumContract = async () => {
-  console.log();
-  
+
+  console.log();  
   const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_APP_RPC_URL)
   const wallet = ethers.Wallet.createRandom()
   const signer = provider.getSigner(wallet.address)
@@ -37,23 +36,23 @@ const ssrEthereumContract = async () => {
 }
 
 const isWallectConnected = async () => {
+  
   try {
-    
-    if (!ethereum) return reportError('Please install Metamask')
+    if (!ethereum){
+      return reportError('Please install Metamask')
+    } 
     const accounts = await ethereum.request({ method: 'eth_accounts' })
-
     window.ethereum.on('chainChanged', (chainId) => {
       window.location.reload()
     })
-
     window.ethereum.on('accountsChanged', async () => {
       setGlobalState('connectedAccount', accounts[0])
       await isWallectConnected()
     })
-
     if (accounts.length) {
       setGlobalState('connectedAccount', accounts[0])
     } else {
+      setGlobalState('connectedAccount','')
       reportError('Please connect wallet.')
       console.log('No accounts found.')
     }
@@ -63,8 +62,8 @@ const isWallectConnected = async () => {
 }
 
 const connectWallet = async () => {
+  
   try {
-    
     if (!ethereum) return reportError('Please install Metamask')
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     setGlobalState('connectedAccount', accounts[0])
@@ -75,15 +74,15 @@ const connectWallet = async () => {
 
 const mintNft = async ({ name, description, imageUrl, price }) => {
   
-  if (!ethereum) return reportError('Please install Metamask')
+  if (!ethereum){
+    return reportError('Please install Metamask')
+  } 
   return new Promise(async (resolve, reject) => {
     try {
       const contract = await getEthereumContract()
-
       tx = await contract.mint(name, description, imageUrl, toWei(price), {
         value: toWei(0.02),
       })
-
       await tx.wait()
       resolve(tx)
     } catch (error) {
@@ -94,12 +93,14 @@ const mintNft = async ({ name, description, imageUrl, price }) => {
 }
 
 const loadNFTs = async () => {
+
   const contract = await getEthereumContract()
   const nfts = await contract.getNFTs()
   return structuredNFTs(nfts)
 }
 
 const structuredNFTs = (nfts) =>
+  
   nfts
     .map((nft) => ({
       tokenId: nft.tokenId.toNumber(),
